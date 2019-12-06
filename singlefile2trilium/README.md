@@ -28,7 +28,8 @@ The handler wraps the html content into an html iframe, which is itself rendered
 
 #### B) Configure [singlefile2trilium-sender.py]
 1. copy the script somewhere on your computer.
-2. configure your system to [run the script at startup](https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html) (as a daemon):
+2. change `BASEDIR` & `TRILIUM_URL` vars in script according to your needs.
+3. configure your system to [run the script at startup](https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html) (as a daemon):
    ```bash
    user@desktop $ ./singlefile2trilium-sender.py
    ```
