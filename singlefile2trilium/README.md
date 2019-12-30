@@ -42,6 +42,12 @@ The handler wraps the html content into an html iframe, which is itself rendered
    ![](img/page-rendered-in-trilium.png)
 
 
+## Throubleshotting
+* Ensure trilium installed version is > 0.38
+* Here is a screenshot of my own singlefile config, may help if default options don't work:
+  ![](img/singlefile-config.png)
+
+
 
 [singlefile2trilium]: .
 [singlefile2trilium-sender.py]: singlefile2trilium-sender.py
@@ -51,3 +57,4 @@ The handler wraps the html content into an html iframe, which is itself rendered
 [custom request handler]: https://github.com/zadam/trilium/wiki/Custom-request-handler
 
 [SingleFile]: https://github.com/gildas-lormeau/SingleFile
+
