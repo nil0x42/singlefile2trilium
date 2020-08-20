@@ -1,5 +1,6 @@
 # [singlefile2trilium]
 Save faithful copy of a web page as a [Trilium] note with [SingleFile] web extension.
+   ![](img/small-demo.png)
 
 ## How it Works
 [SingleFile] web extension saves a faithful copy of the web page being rendered by your browser as a single HTML file.
