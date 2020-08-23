@@ -1,6 +1,11 @@
-# [singlefile2trilium]
+# singlefile2trilium
 Save faithful copy of a web page as a [Trilium] note with [SingleFile] web extension.
-   ![](img/small-demo.png)
+
+[![twitter follow](https://img.shields.io/twitter/follow/nil0x42?label=Follow%20nil0x42%20%21&style=social)](https://twitter.com/intent/follow?screen_name=nil0x42)
+
+![](img/small-demo.png)
+
+
 
 ## How it Works
 [SingleFile] web extension saves a faithful copy of the web page being rendered by your browser as a single HTML file.
@@ -15,7 +20,7 @@ The handler wraps the html content into an html iframe, which is itself rendered
 
 ## Installation
 
-**singlefile2trilium** has the following dependencies:
+Dependencies:
 * Python 3.x
 * [Trilium] >= v0.38
 * [SingleFile]
@@ -50,7 +55,6 @@ The handler wraps the html content into an html iframe, which is itself rendered
 
 
 
-[singlefile2trilium]: .
 [singlefile2trilium-sender.py]: singlefile2trilium-sender.py
 [singlefile2trilium-handler.js]: singlefile2trilium-handler.js
 
@@ -58,4 +62,3 @@ The handler wraps the html content into an html iframe, which is itself rendered
 [custom request handler]: https://github.com/zadam/trilium/wiki/Custom-request-handler
 
 [SingleFile]: https://github.com/gildas-lormeau/SingleFile
-
