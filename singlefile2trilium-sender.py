@@ -50,14 +50,20 @@ while True:
         idx = head.find("Page saved with SingleFile")
         if idx == -1:
             continue
-        idx = head.find(" info: ")
-        if idx == -1:
+
+        url = None
+        title = None
+        for line in head.splitlines():
+            line = line.strip()
+            if url is None and line.startswith("url: "):
+                url = line[5:]
+            elif line.startswith("title: "):
+                title = line[7:]
+
+        if url is None:
             continue
-        head = head[idx+7:]
-        try:
-            url, title = head[:head.find("\n-->")].splitlines()[:2]
-        except:
-            continue
+        if title is None:
+            title = fname[:-5] # filename without '.html' suffix
 
         with open(fname) as fd:
             content = fd.read()
