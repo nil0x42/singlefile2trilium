@@ -50,7 +50,7 @@ if (req.method == 'POST') {
         parentNoteId: renderNote.noteId,
         title: 'content.html',
         content: wrapped_content,
-        type: 'file',
+        type: 'code',
         mime: 'text/html'
     })).note;
     await htmlNote.setLabel('archived');
