@@ -2,61 +2,60 @@
 //  1- Add this file to trilium as a `JS Backend` code note.
 //  2- Set label `customRequestHandler` to 'singlefile2trilium'.
 
-const template = `
-<script>
-    var iframe = document.getElementById('r-iframe');
+const preamble = `
 
+<iframe id="__trilium_iframe" style="width:100%; border:none;" srcdoc="`;
+
+const postamble = `
+">iframe not loaded properly?</iframe>
+
+<script>
+    const iframe = document.getElementById("__trilium_iframe");
     function pageY(elem) {
         return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
     }
-
+    
     function resizeIframe() {
         var height = document.documentElement.clientHeight;
         height -= pageY(iframe) + 20 ;
         height = (height < 0) ? 0 : height;
+        if (!iframe) return;
         iframe.style.height = height + 'px';
     }
-
-    iframe.onload = resizeIframe;
-    window.onresize = resizeIframe;
+    
+    iframe.addEventListener('load', resizeIframe);
+    window.addEventListener('resize', resizeIframe);
 </script>
-
-<iframe id="r-iframe" style="width:100%" src="data:text/html;charset=utf-8,%%CONTENT%%" sandbox=""></iframe>
 `;
 
 const {req, res} = api;
 const {title, url, content} = req.body;
 
 if (req.method == 'POST') {
-    api.log("==========================");
-
-    //const todayNote = await api.getDateNote(today);
-    const todayNote = await api.getTodayNote();
+    const todayNote = api.getTodayNote();
     
-    // create render note
-    const renderNote = (await api.createNewNote({
+    const renderNote = (api.createNewNote({
         parentNoteId: todayNote.noteId,
         title: title,
         content: '',
         type: 'render'
     })).note;
-    await renderNote.setLabel('clipType', 'singlefile2trilium');
-    await renderNote.setLabel('pageUrl', url);
-    await renderNote.setLabel('pageTitle', title);
-
-    // create child `content.html`
-    var wrapped_content = template.replace("%%CONTENT%%", encodeURIComponent(content));
-    const htmlNote = (await api.createNewNote({
+    renderNote.setLabel('clipType', 'singlefile2trilium');
+    renderNote.setLabel('pageUrl', url);
+    renderNote.setLabel('pageTitle', title);
+    
+    const encodedContent = content.replaceAll('"', '"');
+    const wrapped_content = preamble + encodedContent + postamble;
+    const htmlNote = (api.createNewNote({
         parentNoteId: renderNote.noteId,
         title: 'content.html',
         content: wrapped_content,
         type: 'code',
         mime: 'text/html'
     })).note;
-    await htmlNote.setLabel('archived');
+    htmlNote.setLabel('archived');
 
-    // link renderNote to htmlNote
-    await renderNote.setRelation('renderNote', htmlNote.noteId);
+    renderNote.setRelation('renderNote', htmlNote.noteId);
 
     res.send(201); // http 201: created
 }
