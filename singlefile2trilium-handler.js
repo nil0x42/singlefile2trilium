@@ -3,20 +3,20 @@
 //  2- Set label `customRequestHandler` to 'singlefile2trilium'.
 
 const preamble = `
-
-<iframe id="__trilium_iframe" style="width:100%; border:none;" srcdoc="`;
+<iframe id="__trilium_iframe" style="width:100%; flex-grow: 1; border:none;" srcdoc="`;
 
 const postamble = `
 ">iframe not loaded properly?</iframe>
-
 <script>
-    const iframe = document.getElementById("__trilium_iframe");
+(function () {
+    let iframe = document.getElementById("__trilium_iframe");
+    
     function pageY(elem) {
         return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
     }
     
     function resizeIframe() {
-        var height = document.documentElement.clientHeight;
+        let height = document.documentElement.clientHeight;
         height -= pageY(iframe) + 20 ;
         height = (height < 0) ? 0 : height;
         if (!iframe) return;
@@ -25,6 +25,7 @@ const postamble = `
     
     iframe.addEventListener('load', resizeIframe);
     window.addEventListener('resize', resizeIframe);
+})();
 </script>
 `;
 
